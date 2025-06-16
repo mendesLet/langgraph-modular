@@ -1,0 +1,8 @@
+langgraph==0.2.60
+langchain-openai==0.2.14
+langchain-community==0.3.13
+openai==1.58.1
+pandas==2.2.3
+python-dotenv==1.0.1
+fastapi==0.110.1
+uvicorn==0.29.0

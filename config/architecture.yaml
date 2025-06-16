@@ -1,0 +1,42 @@
+# config/architecture.yaml
+
+# Global configuration
+llm:
+  model: "gpt-4o-mini"
+  temperature: 0
+
+# Core nodes that are always present
+core_nodes:
+  fetch_user_info:
+    type: "function"
+    function: "user_info"
+    next: "input_guardrail_node"
+  
+  input_guardrail_node:
+    type: "function"
+    function: "input_guardrail"
+    conditional_next:
+      condition: "is_about_agent_content"
+      true: "hardcoded_input_response"
+      false: "router"
+  
+  hardcoded_input_response:
+    type: "function"
+    function: "hardcoded_input_response"
+    next: "END"
+  
+  router:
+    type: "function"
+    function: "router_node"
+    routes:
+      agent: "agent_graph"
+
+# Subgraphs configuration
+subgraphs:
+
+  other:
+    prompt: "BASE_LLM_PROMPT"
+    tools: {}
+    route_function: "default_route_actor"
+    agent_name: "actor"
+    next: "END"
